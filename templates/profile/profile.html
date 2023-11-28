@@ -1,0 +1,74 @@
+{% extends "main.jinja" %}
+{% block main %}
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+
+{% include("profile/profile_script.jinja") %}
+{% include("profile/profile_style.jinja") %}
+
+<div class="m-5">
+    <div class="row mt-5">
+        <div class="col-sm-12 col-md-4 col-lg-4 mt-5">
+            <div class="row mt-5">
+                <div class="col-sm-12 col-md-12 col-lg-12 mt-5">
+                    <p><b>User Name</b></p>
+                    <p style="color: #828282;">{{user_id}}</p>
+                    <hr />
+                </div>
+                <!-- <div class="col-sm-12 col-md-12 col-lg-12 mt-5">
+                    <p><b>Address</b></p>
+                    <div class="address-box mt-2">
+                        <p style="color: #828282;"></p>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-8 col-lg-8 mt-5">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="row mt-5 order-container p-5">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <h3 style="color: #828282;"><b>Orders</b></h3>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-12 mt-5" >
+                            {% if not orders %}
+                            <h5>No orders to display</h5>
+                            {% else %}
+                            
+                            {% for order in orders %}
+                                <b>Order No. #{{ loop.index0 }}</b>
+                                <table id="order_table" class="order_table">
+                                    <thead>
+                                        <tr>
+                                            <th>Image</th>
+                                            <th>Name</th>
+                                            <th>Amount</th>
+                                            <th>Quantity</th>
+                                        </tr>
+                                    </thead>
+                                    {% for item in order %}
+                                    <tbody id="orders_data">
+                                        <tr>
+                                            <td><img src="{{item['image']}}" width=100 /></td>
+                                            <td>{{item['name']}}</td>
+                                            <td>{{item['price']}}</td>
+                                            <td>{{item['quantity']}}</td>
+                                        </tr>
+                                    </tbody>
+                                    {% endfor %}
+                                </table><br>
+                                <button class="btn btn-primary receipt-button" data-index="{{ loop.index0 }}">Download Receipt</button>
+                                <br>
+                                <br>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

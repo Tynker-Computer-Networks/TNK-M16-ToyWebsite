@@ -1,0 +1,69 @@
+<script>
+    $(function(){
+        
+        $(".order-btn").click(function(){
+            let searchParams = new URLSearchParams(window.location.search)
+            let data = {
+                product_id: searchParams.get('id'),
+                price: parseFloat($("#selling-price").html().substring(1)),
+                quantity: parseInt($("#quantity").html()),
+                total: parseFloat($("#total-price").html().substring(1)), 
+                name: $("#product-name").html(),
+                image: $("#product-img").attr('src')
+            }
+            $.ajax({
+                url: "{{url_for('blueprint.addToCart')}}",
+                type: "post",
+                data: JSON.stringify(data),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (result) {
+                    Swal.fire(
+                        'Added to the cart!'
+                    ).then(() => {
+                        window.location.href = "/cart"
+                    })
+                },
+                error: function (result) {
+                    Swal.fire(
+                        'Uh Oh!',
+                        result.responseJSON.message,
+                        'error'
+                    )
+                }
+            })
+        })
+
+        $("#btn-dec").click(function(){
+            // Get the current value of the input field and parse it as an integer
+            var currentQuantity = parseFloat($("#quantity").html());
+            var sellingPrice = parseFloat($("#selling-price").html().substring(1));
+            var deliveryCharges = parseFloat($("#delivery-charges").html().substring(1));
+
+            if(currentQuantity > 1){
+                // Decrement the quantity by 1
+                var newQuantity = currentQuantity - 1;
+                var total = (newQuantity * sellingPrice) + deliveryCharges
+                // Set the new inner HTML of the element
+                $("#quantity").html(newQuantity);
+                $("#total-price").html('$'+total)
+            }
+
+        })
+
+        $("#btn-inc").click(function(){
+            // Get the current value of the input field and parse it as an integer
+            var currentQuantity = parseFloat($("#quantity").html(), 10);
+            var sellingPrice = parseFloat($("#selling-price").html().substring(1));
+            var deliveryCharges = parseFloat($("#delivery-charges").html().substring(1));
+
+            // Increment the quantity by 1
+            var newQuantity = currentQuantity + 1;
+
+            // Set the new inner HTML of the element
+            $("#quantity").html(newQuantity);
+            total = (newQuantity * sellingPrice) + deliveryCharges
+            $("#total-price").html('$'+total)
+        })
+    })
+</script>

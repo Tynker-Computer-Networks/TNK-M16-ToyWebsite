@@ -1,0 +1,40 @@
+<script>
+    $(document).ready( function () {
+        $('.order_table').DataTable();
+        $(".dataTables_length").css("display", "none");
+        $(".dataTables_filter").css("display", "none");
+        $(".dataTables_paginate ").css("display", "none");
+        $(".dataTables_info").css("display", "none");
+        $("#order_table_length").css("display", "none");
+
+
+        // Attach click event handler to buttons with the downloadButton class
+        $('.receipt-button').on('click', function () {
+            var index = $(this).data('index');
+
+            // Replace this with your actual download logic
+            console.log("Downloading receipt for index: " + index);
+
+            // Make a POST request to generate the PDF
+            $.ajax({
+                url: "/generateReceipt",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({index: index}),
+                success: function (data) {
+                    // Handle the success response (e.g., initiate a download)
+                    var blob = new Blob([data], {type: "application/pdf"});
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = "receipt.pdf";
+                    link.click();
+                },
+                error: function (error) {
+                    console.error("Error:", error);
+                }
+            });
+        });
+
+    } );
+
+</script>

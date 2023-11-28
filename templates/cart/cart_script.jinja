@@ -1,0 +1,28 @@
+<script>
+    $(function(){
+        
+        $(".order-btn").click(function(){
+            
+            $.ajax({
+                url: "{{url_for('blueprint.placeOrder')}}",
+                type: "post",
+                contentType: 'application/json',
+                success: function (result) {
+                    Swal.fire(
+                        'Order Placed!'
+                    ).then(() => {
+                        window.location.href = "/"
+                    })
+                },
+                error: function (result) {
+                    Swal.fire(
+                        'Uh Oh!',
+                        result.responseJSON.message,
+                        'error'
+                    )
+                }
+            })
+        })
+
+    })
+</script>

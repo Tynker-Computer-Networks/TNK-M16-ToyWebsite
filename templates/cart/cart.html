@@ -1,0 +1,106 @@
+{% extends "main.jinja" %}
+{% block main %}
+
+{% include("cart/cart_script.jinja") %}
+{% include("cart/cart_style.jinja") %}
+
+<div class="m-5 pt-5">
+    <div class="row mt-5">
+        <div class="col-sm-12 col-md-12 col-lg-12 p-5 right-section">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <h3 style="color: #828282;"><b>Cart</b></h3>
+                </div>
+                {% if not cart %}
+                    <h6 style="color: #828282;">Cart is empty!</h6>
+                {% else %}
+                    {% for product in cart %}
+                    <div class="col-sm-12 col-md-12 col-lg-12 mt-3">
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2">
+                                <img src="{{product['image']}}" class="product-img" width="100%" />
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-lg-12">
+                                        <p>Name: {{product['name']}}</p>
+                                    </div><div class="col-sm-12 col-md-12 col-lg-12">
+                                        <p>Price: ${{product['price']}}</p>
+                                    </div>
+                                    <div class="col-sm-12 col-md-12 col-lg-12">
+                                        <p>Quantity: {{product['quantity']}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 col-md-2 col-lg-2">
+                                Total: ${{product['total']}}
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
+                    {% endfor %}
+                {% endif %}
+                <div class="col-sm-12 col-md-12 col-lg-12 mt-2">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <p><b>Total Amount</b></p>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <p><b id="total-price"></b>${{totalPrice}}</p>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-12 mt-2">
+                    <button class="order-btn"><b>Place Order</b></button>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-sm-12 col-md-12 col-lg-7 p-5 mr-5 left-section">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <h3 style="color: #828282;"><b>Addresses</b></h3>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-12 addresses">
+                    {% if addresses | length == 0 %}
+                    <h6 style="color: #828282;">No addresses found!</h6>
+                    {% else %}
+                    {% for address in addresses %}
+                    <input id="address-{{address['id']}}" type="radio" name="address" value="{{address['id']}}" />
+                    <label for="address-{{address['id']}}" title="address">
+                        <p>{{address['house_number']}}, {{address["city"]}}, {{address['state']}},
+                            {{address['country']}} - {{address['pin_code']}}</p>
+                    </label>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <h3 style="color: #828282;"><b>New Shipping Details</b></h3>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-12 mt-5">
+                    <textarea type="text" name="house_number" id="house_number" class="order-input"
+                        placeholder="House Number" rows=4></textarea>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6 mt-5">
+                    <input type="text" name="city" id="city" class="order-input" placeholder="City" />
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6 mt-5">
+                    <input type="text" name="state" id="state" class="order-input" placeholder="State" />
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6 mt-5">
+                    <input type="text" name="country" id="country" class="order-input" placeholder="Country" />
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6 mt-5">
+                    <input type="text" name="pin_code" id="pin_code" class="order-input" placeholder="PIN Code" />
+                </div>
+            </div>
+            <div class="row mt-5">
+                <button class="address-btn"><b>Save Address</b></button>
+            </div>
+        </div>  -->
+    </div>
+</div>
+
+{% endblock %}
