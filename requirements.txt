@@ -2,7 +2,7 @@ alembic
 blinker
 cachelib
 click==8.1.7
-colorama==0.4.6
+colorama
 flask==3.0.0
 Flask-Migrate==4.0.5
 flask-session==0.5.0
