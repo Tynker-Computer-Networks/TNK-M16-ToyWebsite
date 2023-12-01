@@ -93,8 +93,6 @@ def order():
         if product['id'] == int(productId):
             selectedProduct = product
 
-    if selectedProduct['status'] == 'Not For Sale':
-        return redirect('/')    
     
     return render_template("order/order.html", product=selectedProduct)
 
@@ -103,21 +101,6 @@ def addAddress():
 
 def addToCart():
     data = request.json
-
-    ### Secure the website by taking important data such as price from server side only###
-    
-    # Loop through each product in products
-    for product in products:
-        # Check id product['id'] matches with the product_id in data
-        if product['id'] == int(data['product_id']):
-            # Store product in selectedProduct
-            selectedProduct = product
-    
-    # Set price, total, name, image of the data using selectedProduct
-    data['price'] = selectedProduct['selling_price']
-    data['total'] = selectedProduct['selling_price'] * data['quantity']
-    data['name'] = selectedProduct['name']
-    data['image'] = 'static/images/' + selectedProduct['image']
 
     cart = session.get('cart', [])
 
